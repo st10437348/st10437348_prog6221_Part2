@@ -148,24 +148,22 @@ namespace CyberChatBot
                     {
                         keywordFound = true;
                         string response = keyword.Value[new Random().Next(keyword.Value.Count)];
+
                         if (sentimentFound)
                         {
-                            bot.SimulateTyping(response);
+                            bot.SimulateTyping("Hopefully this fact will help you:");
                         }
-                        else
-                        {
-                            bot.SimulateTyping(response);
-                        }
+
+                        bot.SimulateTyping(response);
                         break;
                     }
                 }
-
                 if (!keywordFound && !sentimentFound)
                 {
                     bot.SimulateTyping("I'm not sure I understand that. Could you try rephrasing your question?");
                 }
 
-                if (new Random().Next(10) < 2)
+                if (new Random().Next(10) < 4)
                 {
                     bot.SimulateTyping($"Earlier you mentioned {userInterest}. Would you like to know more about it? (yes/no)");
                     Console.ForegroundColor = ConsoleColor.Green;

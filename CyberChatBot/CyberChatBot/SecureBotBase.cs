@@ -8,6 +8,3 @@
         public abstract void SimulateTyping(string message);
     }
 }
-
-
-

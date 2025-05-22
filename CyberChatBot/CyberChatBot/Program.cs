@@ -10,16 +10,15 @@
             bot.PlayVoiceGreeting();
 
             bot.PrintDivider();
-            bot.SimulateTyping("Hello! I'm SecureBot, your personal guide to navigating the world of cybersecurity with confidence and clarity. I am looking forward to chatting with and assisting in any way I can");
-            bot.SimulateTyping("Before we begin, what is your name? I would love to address you in a more personal manner since you already know my name");
+            bot.SimulateTyping("Hello! I'm SecureBot, your personal guide to navigating the world of cybersecurity with confidence and clarity. I am looking forward to chatting with you and assisting in any way I can");
+            bot.SimulateTyping("Before we begin, what is your name? I would love to address you in a more personal manner since you already know my name.");
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nYou: ");
             Console.ResetColor();
             string userName = Console.ReadLine();
 
-            bot.PrintDivider();
-            bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online and hopefully by the end of our convosation you would have learnt a thing or two");
+            bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online and hopefully by the end of our conversation you would have learnt a thing or two");
 
             bot.SimulateTyping("How are you feeling today?");
             Console.ForegroundColor = ConsoleColor.Green;
@@ -51,7 +50,7 @@
             }
 
             List<string> validInterests = new List<string> {
-                "password", "scams", "privacy", "phishing", "malware", "vpn",
+                "passwords", "scams", "privacy", "phishing", "malware", "vpn",
                 "safe browsing", "identity theft", "encryption", "firewalls"
             };
 
@@ -59,7 +58,7 @@
 
             while (true)
             {
-                bot.SimulateTyping("What area of cybersecurity sparks your curiosity? (privacy, scams, passwords, phishing, malware, VPN, safe browsing, identity theft, encryption, firewalls)");
+                bot.SimulateTyping("What area of cybersecurity sparks your curiosity? (privacy, scams, passwords, phishing, malware, VPN, safe browsing, identity theft, encryption and firewalls)");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("\nYou: ");
                 Console.ResetColor();
@@ -81,7 +80,7 @@
             var keywordResponses = new Dictionary<string, List<string>>()
             {
                 { "passwords", new List<string> {
-                    "Strong passwords should be at least 12 characters long, using a combination of uppercase and lowercase letters, numbers, and symbols to enhance complexity.",
+                    $"Strong passwords should be at least 12 characters long, using a combination of uppercase and lowercase letters, numbers and symbols to enhance complexity. For example {userName}123@IieMsa ",
                     "Avoid using obvious choices like your name, birthdate, or common words, as these can be easily guessed or cracked by attackers.",
                     "Each account should have a unique password; reusing passwords increases the risk of a domino effect if one account is compromised.",
                     "A password manager helps generate, store, and autofill complex passwords securely, reducing the temptation to use weak or repeated passwords.",
@@ -102,7 +101,7 @@
                     "Use alias emails and phone numbers for sign-ups and mailing lists to reduce exposure and better manage who can contact you."
                 }},
                 { "phishing", new List<string> {
-                    "Phishing emails often create urgency or fear—always pause before acting on a message asking for sensitive information or money.",
+                    "Phishing emails often create urgency before acting on a message asking for sensitive information or money.",
                     "Carefully examine email addresses and URLs; subtle differences or misspellings can signal a phishing attempt.",
                     "Avoid clicking on links or downloading files in unexpected messages, even if they appear to come from someone you know.",
                     "Legitimate companies will never ask you for your password or payment details via email—when in doubt, contact them directly.",
@@ -111,7 +110,7 @@
                 { "malware", new List<string> {
                     "Install antivirus software from a reputable provider and keep it updated to protect against known and emerging threats.",
                     "Be cautious with files downloaded from unfamiliar websites or shared via email—they could carry malicious payloads.",
-                    "Keep your operating system, browsers, and plugins up to date; many malware infections exploit outdated software.",
+                    "Keep your operating system, browsers and plugins up to date; many malware infections exploit outdated software.",
                     "Avoid pirated software or media, as they are common sources of bundled malware and other unwanted programs.",
                     "Back up your data regularly to secure locations, such as encrypted cloud storage or external drives, in case of a malware attack like ransomware."
                 }},
@@ -154,16 +153,16 @@
 
             var sentiments = new Dictionary<string, string>()
             {
-                { "worried", "It's normal to feel worried. Cybersecurity can seem complex, but I'm here to simplify it for you." },
-                { "curious", "Curiosity is the first step towards being cyber-aware. Let's explore together!" },
-                { "frustrated", "Don't worry, we'll take it one step at a time. You're not alone in this." },
-                { "scared", "No need to fear. Knowledge is your best defense." },
-                { "confused", "Let's clear up that confusion together. Ask me anything." },
-                { "overwhelmed", "Take a deep breath. We'll tackle each topic at your pace." },
-                { "anxious", "Anxiety is understandable. I'm here to make things easier for you." },
-                { "happy", "That's wonderful! Positive energy helps us learn better." },
-                { "bored", "I'll do my best to keep our chat engaging and informative!" },
-                { "relaxed", "Great! A relaxed mind is perfect for learning." }
+                { "worried", $"It's normal to feel worried {userName}. Cybersecurity can seem complex, but I'm here to simplify it for you." },
+                { "curious", $"Curiosity is the first step towards being cyber-aware. Let's explore together, {userName}!" },
+                { "frustrated", $"Don't worry {userName}, we'll take it one step at a time. You're not alone in this." },
+                { "scared", $"No need to fear {userName}. Knowledge is your best defense." },
+                { "confused", $"Let's clear up that confusion together. Ask me anything thats on your mind, {userName}." },
+                { "overwhelmed", $"Take a deep breath {userName}. We'll tackle each topic at your pace." },
+                { "anxious", $"Anxiety is understandable. I'm here to make things easier for you." },
+                { "happy", $"That's wonderful, {userName}! Positive energy helps us learn better." },
+                { "bored", $"Im sorry {userName}. I'll do my best to keep our chat engaging and informative!" },
+                { "relaxed", $"Great stuff, {userName}! A relaxed mind is perfect for learning." }
             };
 
             while (true)
@@ -176,7 +175,7 @@
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    bot.SimulateTyping("Please enter a valid question or statement.");
+                    bot.SimulateTyping($"I'm not sure I understand that. Could you maybe try rephrasing your response or question {userName}? I will do my best to interpret it");
                     continue;
                 }
 
@@ -188,7 +187,7 @@
 
                 if (input.Contains("how are you"))
                 {
-                    bot.SimulateTyping("I'm always up and running as smoothly as ever, thanks for asking!");
+                    bot.SimulateTyping($"I'm up and running as smoothly as ever, thanks for asking {userName}!");
                     continue;
                 }
 
@@ -219,7 +218,7 @@
 
                         if (sentimentFound)
                         {
-                            bot.SimulateTyping("Hopefully this fact will help you:");
+                            bot.SimulateTyping($"Hopefully this fact will help you, {userName}:");
                         }
                         Random rand = new Random();
                         string response = keyword.Value[rand.Next(keyword.Value.Count)];
@@ -234,7 +233,7 @@
 
                         if (yesNoResponse == "yes")
                         {
-                            bot.SimulateTyping("Here's another fact you might find interesting:");
+                            bot.SimulateTyping($"Here's another fact you might find interesting, {userName}:");
                             string fact = keywordResponses[keyword.Key][rand.Next(keywordResponses[keyword.Key].Count)];
                             bot.SimulateTyping(fact);
                         }
@@ -244,7 +243,7 @@
                         }
                         else
                         {
-                            bot.SimulateTyping("I didn't quite get that, but feel free to ask anything else!");
+                            bot.SimulateTyping($"I didn't quite get that {userName}, but feel free to ask anything else!");
                         }
 
                         break;
@@ -253,12 +252,12 @@
 
                 if (!keywordFound && !sentimentFound)
                 {
-                    bot.SimulateTyping("I'm not sure I understand that. Could you maybe try rephrasin? I will do my best to interepret your response");
+                    bot.SimulateTyping($"I'm not sure I understand that. Could you maybe try rephrasing your response {userName}? I will do my best to interpret your response");
                 }
 
                 if (new Random().Next(10) < 4)
                 {
-                    bot.SimulateTyping($"Earlier you mentioned {userInterest}. Would you like to know more about it? (yes/no)");
+                    bot.SimulateTyping($"{userName}, earlier you mentioned {userInterest}. Would you like to know more about it? (yes/no)");
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("\nYou: ");
                     Console.ResetColor();
@@ -272,10 +271,6 @@
                             string fact = keywordResponses[userInterest][new Random().Next(keywordResponses[userInterest].Count)];
                             bot.SimulateTyping(fact);
                         }
-                        else
-                        {
-                            bot.SimulateTyping("Sorry, I don't have more details on that specific topic yet.");
-                        }
                     }
                     else if (interestReply == "no")
                     {
@@ -284,7 +279,7 @@
 
                         while (!validNewInterest)
                         {
-                            bot.SimulateTyping("No problem! Is there another area of cybersecurity you're curious about?");
+                            bot.SimulateTyping("Is there another area of cybersecurity you're curious about?");
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.Write("\nYou: ");
                             Console.ResetColor();
@@ -294,7 +289,7 @@
                             {
                                 validNewInterest = true;
                                 userInterest = newInterest;
-                                bot.SimulateTyping($"Got it! I'll remember that you're now interested in {userInterest}.");
+                                bot.SimulateTyping($"Got it, {userName}! I'll remember that you're now interested in {userInterest}.");
                             }
                             else
                             {

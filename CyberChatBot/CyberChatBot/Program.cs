@@ -5,14 +5,13 @@
         static void Main(string[] args)
         {
             Console.Title = "CyberChatBot";
-
             SecureBot bot = new SecureBot();
             bot.DisplayAsciiArt();
             bot.PlayVoiceGreeting();
 
             bot.PrintDivider();
-            bot.SimulateTyping("Hello! I'm SecureBot, your personal guide to navigating the world of cybersecurity with confidence and clarity.");
-            bot.SimulateTyping("Before we begin, may I know your name?");
+            bot.SimulateTyping("Hello! I'm SecureBot, your personal guide to navigating the world of cybersecurity with confidence and clarity. I am looking forward to chatting with and assisting in any way I can");
+            bot.SimulateTyping("Before we begin, what is your name? I would love to address you in a more personal manner since you already know my name");
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nYou: ");
@@ -20,7 +19,7 @@
             string userName = Console.ReadLine();
 
             bot.PrintDivider();
-            bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online.");
+            bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online and hopefully by the end of our convosation you would have learnt a thing or two");
 
             bot.SimulateTyping("How are you feeling today?");
             Console.ForegroundColor = ConsoleColor.Green;
@@ -51,31 +50,106 @@
                 bot.SimulateTyping(negativeResponses[new Random().Next(negativeResponses.Length)]);
             }
 
-            bot.SimulateTyping("What area of cybersecurity sparks your curiosity? (e.g., privacy, scams, passwords, phishing, malware, VPN, safe browsing, identity theft, encryption, firewalls)");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("\nYou: ");
-            Console.ResetColor();
-            string userInterest = Console.ReadLine().ToLower();
+            List<string> validInterests = new List<string> {
+                "password", "scams", "privacy", "phishing", "malware", "vpn",
+                "safe browsing", "identity theft", "encryption", "firewalls"
+            };
 
-            bot.SimulateTyping($"I'll remember that you're interested in {userInterest}. That's a crucial topic!");
+            string userInterest = "";
+
+            while (true)
+            {
+                bot.SimulateTyping("What area of cybersecurity sparks your curiosity? (privacy, scams, passwords, phishing, malware, VPN, safe browsing, identity theft, encryption, firewalls)");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("\nYou: ");
+                Console.ResetColor();
+                userInterest = Console.ReadLine()?.ToLower().Trim();
+
+                if (!string.IsNullOrWhiteSpace(userInterest) &&
+                    validInterests.Any(i => i == userInterest || userInterest.Contains(i)))
+                {
+                    userInterest = validInterests.First(i => userInterest.Contains(i));
+                    break;
+                }
+
+                bot.SimulateTyping("Hmm... I didn't catch that as a valid topic. Please choose one from the list.");
+            }
+            bot.SimulateTyping($"I'll remember that you're interested in {userInterest}. That's a crucial topic! Maybe later on in our chat we can discuss {userInterest} further");
 
             bot.SimulateTyping("Ask me anything about cybersecurity, or you can ask 'what can I ask you' or 'what do you know' for more options. Type 'exit' to leave anytime.");
 
             var keywordResponses = new Dictionary<string, List<string>>()
             {
-                { "password", new List<string> { "Strong passwords should be at least 12 characters with a mix of letters, numbers, and symbols.", "Consider using a password manager to safely store complex passwords.", "Avoid using personal information like birthdays in your passwords." } },
-                { "scam", new List<string> { "Be skeptical of unsolicited requests for sensitive information.", "Always verify the source before clicking links or sharing details.", "Report scams to relevant authorities to protect others." } },
-                { "privacy", new List<string> { "Limit the personal information you share on social platforms.", "Review app permissions regularly and disable what you don't use.", "Consider using privacy-focused browsers or extensions." } },
-                { "phishing", new List<string> { "Look out for poor grammar and suspicious links in emails.", "Always verify sender addresses carefully.", "Don't click on links from unknown sources without verifying them." } },
-                { "malware", new List<string> { "Install reputable antivirus software and keep it updated.", "Be cautious with email attachments from unknown senders.", "Backup your data regularly to avoid ransomware threats." } },
-                { "vpn", new List<string> { "A VPN encrypts your internet traffic, making public Wi-Fi safer.", "Choose a VPN provider with a strict no-logs policy.", "Use VPNs to access geo-restricted content securely." } },
-                { "safe browsing", new List<string> { "Always look for HTTPS before entering sensitive info.", "Consider using browser security extensions.", "Be mindful of the sites you visit and their credibility." } },
-                { "identity theft", new List<string> { "Monitor your credit reports for unusual activities.", "Never share personal info over unsecured networks.", "Use multifactor authentication whenever possible." } },
-                { "encryption", new List<string> { "Encrypt sensitive files to prevent unauthorized access.", "Use end-to-end encrypted messaging apps for privacy.", "Encryption ensures that data is unreadable without the correct key." } },
-                { "firewalls", new List<string> { "Enable firewalls to block unauthorized access.", "Both hardware and software firewalls add layers of security.", "Regularly update firewall rules to stay protected." } },
-                { "help", new List<string> { "Of course! Just let me know the topic you're curious about.", "I'm here to assist. What would you like to learn today?" } },
-                { "thank you", new List<string> { "You're welcome! Happy to help anytime.", "Glad to be of assistance. Stay safe!" } },
-                { "understand", new List<string> { "Let me rephrase that for you...", "Here's another way to look at it." } }
+                { "passwords", new List<string> {
+                    "Strong passwords should be at least 12 characters long, using a combination of uppercase and lowercase letters, numbers, and symbols to enhance complexity.",
+                    "Avoid using obvious choices like your name, birthdate, or common words, as these can be easily guessed or cracked by attackers.",
+                    "Each account should have a unique password; reusing passwords increases the risk of a domino effect if one account is compromised.",
+                    "A password manager helps generate, store, and autofill complex passwords securely, reducing the temptation to use weak or repeated passwords.",
+                    "Change your passwords regularly, especially for sensitive accounts, and immediately after any suspected security breach."
+                }},
+                { "scams", new List<string> {
+                    "Scammers often impersonate trusted organizations or people—always confirm identities through official contact channels before responding.",
+                    "Watch out for urgent requests for money or personal data; creating panic is a common tactic used to override your better judgment.",
+                    "Do not trust caller ID or email headers at face value—these can be spoofed to appear legitimate while being fraudulent.",
+                    "Take a moment to research any suspicious offers or requests online. Many scams follow common patterns that others have reported.",
+                    "Reporting scams to authorities and platforms can help prevent others from falling victim and contributes to broader cybersecurity efforts."
+                }},
+                { "privacy", new List<string> {
+                    "Think carefully about what you share online; even casual posts can reveal information useful to identity thieves or scammers.",
+                    "Adjust your privacy settings on social media and mobile apps to limit access to your personal data and location.",
+                    "Uninstall apps you no longer use and routinely review permissions to ensure you’re not oversharing data with unnecessary services.",
+                    "Consider using privacy-focused browsers and search engines, like Brave or DuckDuckGo, to minimize tracking and data collection.",
+                    "Use alias emails and phone numbers for sign-ups and mailing lists to reduce exposure and better manage who can contact you."
+                }},
+                { "phishing", new List<string> {
+                    "Phishing emails often create urgency or fear—always pause before acting on a message asking for sensitive information or money.",
+                    "Carefully examine email addresses and URLs; subtle differences or misspellings can signal a phishing attempt.",
+                    "Avoid clicking on links or downloading files in unexpected messages, even if they appear to come from someone you know.",
+                    "Legitimate companies will never ask you for your password or payment details via email—when in doubt, contact them directly.",
+                    "Use spam filters and report phishing emails so they can be blocked in the future and help protect others."
+                }},
+                { "malware", new List<string> {
+                    "Install antivirus software from a reputable provider and keep it updated to protect against known and emerging threats.",
+                    "Be cautious with files downloaded from unfamiliar websites or shared via email—they could carry malicious payloads.",
+                    "Keep your operating system, browsers, and plugins up to date; many malware infections exploit outdated software.",
+                    "Avoid pirated software or media, as they are common sources of bundled malware and other unwanted programs.",
+                    "Back up your data regularly to secure locations, such as encrypted cloud storage or external drives, in case of a malware attack like ransomware."
+                }},
+                { "vpn", new List<string> {
+                    "A VPN encrypts your internet traffic, which protects your data from hackers on unsecured public networks like coffee shop Wi-Fi.",
+                    "Select a trustworthy VPN provider that doesn’t log your activity and offers strong encryption and fast, stable connections.",
+                    "VPNs help prevent websites, advertisers, and even your ISP from tracking your browsing habits across the web.",
+                    "Some countries restrict content based on location; a VPN allows you to access these resources securely while traveling.",
+                    "Always turn on your VPN before accessing sensitive services or when connecting to networks you don’t control."
+                }},
+                { "safe browsing", new List<string> {
+                    "Look for a padlock icon and 'https://' in the URL bar before entering sensitive information on a website.",
+                    "Install browser extensions that enhance security and privacy, such as ad blockers or anti-tracking tools.",
+                    "Avoid clicking suspicious links, even if they appear on familiar websites—malvertising can target trusted platforms.",
+                    "Log out of accounts after use and clear cookies regularly to minimize exposure from session hijacking or tracking.",
+                    "Only download software from verified, official sources to avoid inadvertently installing malicious code."
+                }},
+                { "identity theft", new List<string> {
+                    "Monitor your credit reports and bank statements regularly for any signs of unauthorized activity or new account openings.",
+                    "Don’t share personal information like your Social Security number, home address, or full birthdate unless absolutely necessary.",
+                    "Use multifactor authentication wherever possible—this adds a critical layer of defense even if your password is compromised.",
+                    "Avoid using public Wi-Fi for sensitive tasks like banking unless you’re connected through a secure VPN.",
+                    "Shred physical documents containing personal details before disposal to prevent dumpster diving data theft."
+                }},
+                { "encryption", new List<string> {
+                    "Encrypt important files, especially those stored on portable devices or cloud services, to prevent unauthorized access if lost or stolen.",
+                    "Use communication platforms that support end-to-end encryption so your messages can’t be read by anyone except the intended recipient.",
+                    "Encryption is only as secure as your passphrase—use long, complex phrases and avoid reusing them across services.",
+                    "Enable device encryption on laptops, smartphones, and tablets so that even if your device is stolen, your data remains protected.",
+                    "Be aware of where your encrypted data is stored and make sure the keys or passwords needed to unlock it are stored securely."
+                }},
+                { "firewalls", new List<string> {
+                    "Firewalls monitor and control incoming and outgoing traffic to protect against unauthorized access and malicious activity.",
+                    "Use both hardware (on your router) and software (on your device) firewalls to create multiple layers of defense.",
+                    "Review and customize your firewall rules to limit what applications can communicate over the internet.",
+                    "Keep your firewall software updated to ensure it's equipped to recognize and respond to the latest threats.",
+                    "Avoid disabling your firewall for convenience—if necessary, only disable temporarily and re-enable immediately after the task is complete."
+                }},
             };
 
             var sentiments = new Dictionary<string, string>()
@@ -108,19 +182,19 @@
 
                 if (input == "exit")
                 {
-                    bot.SimulateTyping($"Goodbye {userName}! Stay safe and cyber-smart.");
+                    bot.SimulateTyping($"Goodbye {userName}! Stay safe and remember to come back if you have any more questions.");
                     break;
                 }
 
                 if (input.Contains("how are you"))
                 {
-                    bot.SimulateTyping("I'm always ready and running smoothly, thanks for asking!");
+                    bot.SimulateTyping("I'm always up and running as smoothly as ever, thanks for asking!");
                     continue;
                 }
 
                 if (input.Contains("what can i ask you") || input.Contains("what do you know"))
                 {
-                    bot.SimulateTyping("You can ask me about passwords, scams, privacy, phishing, malware, VPN, safe browsing, identity theft, encryption, firewalls, or general cybersecurity tips.");
+                    bot.SimulateTyping("You can ask me about: \n-passwords \n-scams \n-privacy \n-phishing \n-malware \n-VPN \n-safe browsing \n-identity theft \n-encryption \n-firewalls");
                     continue;
                 }
 
@@ -166,20 +240,20 @@
                         }
                         else if (yesNoResponse == "no")
                         {
-                            bot.SimulateTyping($"I hope I helped you understand more about {keyword.Key}.");
+                            bot.SimulateTyping($"Awesome! I hope this means I have helped you understand {keyword.Key}.");
                         }
                         else
                         {
                             bot.SimulateTyping("I didn't quite get that, but feel free to ask anything else!");
                         }
 
-                        break; 
+                        break;
                     }
                 }
 
                 if (!keywordFound && !sentimentFound)
                 {
-                    bot.SimulateTyping("I'm not sure I understand that. Could you try rephrasing your question?");
+                    bot.SimulateTyping("I'm not sure I understand that. Could you maybe try rephrasin? I will do my best to interepret your response");
                 }
 
                 if (new Random().Next(10) < 4)
@@ -205,12 +279,28 @@
                     }
                     else if (interestReply == "no")
                     {
-                        bot.SimulateTyping("No problem! Is there another area of cybersecurity you're curious about?");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("\nYou: ");
-                        Console.ResetColor();
-                        userInterest = Console.ReadLine().ToLower();
-                        bot.SimulateTyping($"Got it! I'll remember that you're now interested in {userInterest}.");
+                        string newInterest = "";
+                        bool validNewInterest = false;
+
+                        while (!validNewInterest)
+                        {
+                            bot.SimulateTyping("No problem! Is there another area of cybersecurity you're curious about?");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("\nYou: ");
+                            Console.ResetColor();
+                            newInterest = Console.ReadLine().ToLower();
+
+                            if (validInterests.Contains(newInterest))
+                            {
+                                validNewInterest = true;
+                                userInterest = newInterest;
+                                bot.SimulateTyping($"Got it! I'll remember that you're now interested in {userInterest}.");
+                            }
+                            else
+                            {
+                                bot.SimulateTyping("Hmm, that doesn't match my list of cybersecurity topics. Please choose from the valid options.");
+                            }
+                        }
                     }
                 }
             }

@@ -72,11 +72,11 @@ namespace CyberChatBot
         public void AskIfNeedAnythingElse(string keyword)
         {
             string[] responses = {
-        $"Is there anything else you'd like to know about {keyword}?",
-        $"Can I assist you with anything further related to {keyword}?",
-        $"Would you like help with something else about {keyword}?",
-        $"Is there another question I can answer for you regarding {keyword}?"
-    };
+                $"Is there anything else you'd like to know about {keyword}?(yes/no)",
+                $"Can I assist you with anything further related to {keyword}?(yes/no)",
+                $"Would you like help with something else about {keyword}?(yes/no)",
+                $"Is there another fact I can give you regarding {keyword}?(yes/no)"
+            };
             SimulateTyping(responses[new Random().Next(responses.Length)]);
         }
     }

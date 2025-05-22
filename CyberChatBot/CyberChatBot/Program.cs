@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CyberChatBot
+﻿namespace CyberChatBot
 {
     class Program
     {
@@ -25,7 +22,6 @@ namespace CyberChatBot
             bot.PrintDivider();
             bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online.");
 
-            // Ask how the user is
             bot.SimulateTyping("How are you feeling today?");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nYou: ");
@@ -55,7 +51,6 @@ namespace CyberChatBot
                 bot.SimulateTyping(negativeResponses[new Random().Next(negativeResponses.Length)]);
             }
 
-            // Interests
             bot.SimulateTyping("What area of cybersecurity sparks your curiosity? (e.g., privacy, scams, passwords, phishing, malware, VPN, safe browsing, identity theft, encryption, firewalls)");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nYou: ");
@@ -147,17 +142,41 @@ namespace CyberChatBot
                     if (input.Contains(keyword.Key))
                     {
                         keywordFound = true;
-                        string response = keyword.Value[new Random().Next(keyword.Value.Count)];
 
                         if (sentimentFound)
                         {
                             bot.SimulateTyping("Hopefully this fact will help you:");
                         }
-
+                        Random rand = new Random();
+                        string response = keyword.Value[rand.Next(keyword.Value.Count)];
                         bot.SimulateTyping(response);
-                        break;
+
+                        bot.AskIfNeedAnythingElse(keyword.Key);
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("\nYou: ");
+                        Console.ResetColor();
+                        string yesNoResponse = Console.ReadLine().ToLower();
+
+                        if (yesNoResponse == "yes")
+                        {
+                            bot.SimulateTyping("Here's another fact you might find interesting:");
+                            string fact = keywordResponses[keyword.Key][rand.Next(keywordResponses[keyword.Key].Count)];
+                            bot.SimulateTyping(fact);
+                        }
+                        else if (yesNoResponse == "no")
+                        {
+                            bot.SimulateTyping($"I hope I helped you understand more about {keyword.Key}.");
+                        }
+                        else
+                        {
+                            bot.SimulateTyping("I didn't quite get that, but feel free to ask anything else!");
+                        }
+
+                        break; 
                     }
                 }
+
                 if (!keywordFound && !sentimentFound)
                 {
                     bot.SimulateTyping("I'm not sure I understand that. Could you try rephrasing your question?");

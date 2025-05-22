@@ -69,25 +69,14 @@ namespace CyberChatBot
             Console.WriteLine();
         }
 
-        public void AskIfNeedAnythingElse()
+        public void AskIfNeedAnythingElse(string keyword)
         {
             string[] responses = {
-                "Is there anything else you'd like to know?",
-                "Can I assist you with anything further?",
-                "Would you like help with something else?",
-                "Is there another question I can answer for you?"
-            };
-            SimulateTyping(responses[new Random().Next(responses.Length)]);
-        }
-
-        public void AskHowAreYou()
-        {
-            string[] responses = {
-                "I'm always ready and running smoothly, thanks for asking!",
-                "I'm functioning perfectly, ready to assist you!",
-                "All systems are go, thanks for asking!",
-                "I'm doing great, thank you for checking in!"
-            };
+        $"Is there anything else you'd like to know about {keyword}?",
+        $"Can I assist you with anything further related to {keyword}?",
+        $"Would you like help with something else about {keyword}?",
+        $"Is there another question I can answer for you regarding {keyword}?"
+    };
             SimulateTyping(responses[new Random().Next(responses.Length)]);
         }
     }

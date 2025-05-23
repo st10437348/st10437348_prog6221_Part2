@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace CyberChatBot
 {
-    public class SecureBot : SecureBotBase
+    public class SecureBot : SecureBotBase // Main class that implements the SecureBot functionality
     {
-        public override void DisplayAsciiArt()
+        public override void DisplayAsciiArt() // Displays ASCII art logo in console
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine(@"
@@ -23,7 +23,7 @@ namespace CyberChatBot
             Console.ResetColor();
         }
 
-        public override void PlayVoiceGreeting()
+        public override void PlayVoiceGreeting() // Plays a voice greeting using a .wav file (Windows only)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace CyberChatBot
             Console.ResetColor();
         }
 
-        public override void SimulateTyping(string message)
+        public override void SimulateTyping(string message) // Simulates typing effect for messages output by SecureBot
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -64,7 +64,7 @@ namespace CyberChatBot
             foreach (char c in message)
             {
                 Console.Write(c);
-                Thread.Sleep(30);
+                Thread.Sleep(30); // Typing effect delay
             }
             Console.WriteLine();
         }

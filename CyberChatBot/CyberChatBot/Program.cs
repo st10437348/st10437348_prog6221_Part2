@@ -5,27 +5,28 @@
         static void Main(string[] args)
         {
             Console.Title = "CyberChatBot";
-            SecureBot bot = new SecureBot();
+            SecureBot bot = new SecureBot(); // Initialize the bot
             bot.DisplayAsciiArt();
             bot.PlayVoiceGreeting();
 
             bot.PrintDivider();
-            bot.SimulateTyping("Hello! I'm SecureBot, your personal guide to navigating the world of cybersecurity with confidence and clarity. I am looking forward to chatting with you and assisting in any way I can");
+            // Initial greeting and get user's name
+            bot.SimulateTyping("Hello! I'm SecureBot, your personal guide to navigating the world of cybersecurity with confidence and clarity. I am looking forward to chatting with you and assisting in any way I can.");
             bot.SimulateTyping("Before we begin, what is your name? I would love to address you in a more personal manner since you already know my name.");
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nYou: ");
             Console.ResetColor();
             string userName = Console.ReadLine();
-
-            bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online and hopefully by the end of our conversation you would have learnt a thing or two");
-
+            // Respond to user's name
+            bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online and hopefully by the end of our conversation you would have learnt a thing or two.");
+            // Ask and respond to user's mood
             bot.SimulateTyping("How are you feeling today?");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nYou: ");
             Console.ResetColor();
             string userMood = Console.ReadLine().ToLower();
-
+            // Arrays of positive and negative responses based on mood
             string[] positiveResponses = {
                 "That's fantastic! A positive mindset is a great shield against cyber threats.",
                 "Wonderful to hear! Let's make your online journey even safer today.",
@@ -48,7 +49,7 @@
             {
                 bot.SimulateTyping(negativeResponses[new Random().Next(negativeResponses.Length)]);
             }
-
+            // Ask user to choose an area of interest
             List<string> validInterests = new List<string> {
                 "passwords", "scams", "privacy", "phishing", "malware", "vpn",
                 "safe browsing", "identity theft", "encryption", "firewalls"
@@ -73,14 +74,14 @@
 
                 bot.SimulateTyping("Hmm... I didn't catch that as a valid topic. Please choose one from the list.");
             }
-            bot.SimulateTyping($"I'll remember that you're interested in {userInterest}. That's a crucial topic! Maybe later on in our chat we can discuss {userInterest} further");
+            bot.SimulateTyping($"I'll remember that you're interested in {userInterest}. That's a crucial topic! Maybe later on in our chat we can discuss {userInterest} further.");
 
             bot.SimulateTyping("Ask me anything about cybersecurity, or you can ask 'what can I ask you' or 'what do you know' for more options. Type 'exit' to leave anytime.");
-
-            var keywordResponses = new Dictionary<string, List<string>>()
+            
+            var keywordResponses = new Dictionary<string, List<string>>() // Dictionary of keyword-based facts
             {
                 { "passwords", new List<string> {
-                    $"Strong passwords should be at least 12 characters long, using a combination of uppercase and lowercase letters, numbers and symbols to enhance complexity. For example {userName}123@IieMsa ",
+                    $"Strong passwords should be at least 12 characters long, using a combination of uppercase and lowercase letters, numbers and symbols to enhance complexity. For example {userName}123@IieMsa.",
                     "Avoid using obvious choices like your name, birthdate, or common words, as these can be easily guessed or cracked by attackers.",
                     "Each account should have a unique password; reusing passwords increases the risk of a domino effect if one account is compromised.",
                     "A password manager helps generate, store, and autofill complex passwords securely, reducing the temptation to use weak or repeated passwords.",
@@ -151,7 +152,7 @@
                 }},
             };
 
-            var sentiments = new Dictionary<string, string>()
+            var sentiments = new Dictionary<string, string>() // Sentiment-based supportive responses
             {
                 { "worried", $"It's normal to feel worried {userName}. Cybersecurity can seem complex, but I'm here to simplify it for you." },
                 { "curious", $"Curiosity is the first step towards being cyber-aware. Let's explore together, {userName}!" },
@@ -165,7 +166,7 @@
                 { "relaxed", $"Great stuff, {userName}! A relaxed mind is perfect for learning." }
             };
 
-            while (true)
+            while (true) // Main interaction loop
             {
                 bot.PrintDivider();
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -175,7 +176,7 @@
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    bot.SimulateTyping($"I'm not sure I understand that. Could you maybe try rephrasing your response or question {userName}? I will do my best to interpret it");
+                    bot.SimulateTyping($"I'm not sure I understand that. Could you maybe try rephrasing your response or question {userName}? I will do my best to interpret it.");
                     continue;
                 }
 
@@ -200,7 +201,7 @@
                 bool keywordFound = false;
                 bool sentimentFound = false;
 
-                foreach (var sentiment in sentiments)
+                foreach (var sentiment in sentiments) // Sentiment matching
                 {
                     if (input.Contains(sentiment.Key))
                     {
@@ -210,7 +211,7 @@
                     }
                 }
 
-                foreach (var keyword in keywordResponses)
+                foreach (var keyword in keywordResponses) // Keyword (topic) matching
                 {
                     if (input.Contains(keyword.Key))
                     {
@@ -250,12 +251,12 @@
                     }
                 }
 
-                if (!keywordFound && !sentimentFound)
+                if (!keywordFound && !sentimentFound) // Fallback for unrecognised input
                 {
                     bot.SimulateTyping($"I'm not sure I understand that. Could you maybe try rephrasing your response {userName}? I will do my best to interpret your response");
                 }
 
-                if (new Random().Next(10) < 4)
+                if (new Random().Next(10) < 4) // Occasional prompt to revisit interest (recall feature)
                 {
                     bot.SimulateTyping($"{userName}, earlier you mentioned {userInterest}. Would you like to know more about it? (yes/no)");
                     Console.ForegroundColor = ConsoleColor.Green;

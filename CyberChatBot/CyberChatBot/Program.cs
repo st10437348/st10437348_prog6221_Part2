@@ -18,14 +18,17 @@
             Console.Write("\nYou: ");
             Console.ResetColor();
             string userName = Console.ReadLine();
+
             // Respond to user's name
             bot.SimulateTyping($"It's a pleasure to meet you, {userName}. Together, we'll explore how to stay safe and smart online and hopefully by the end of our conversation you would have learnt a thing or two.");
+
             // Ask and respond to user's mood
             bot.SimulateTyping("How are you feeling today?");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nYou: ");
             Console.ResetColor();
             string userMood = Console.ReadLine().ToLower();
+
             // Arrays of positive and negative responses based on mood
             string[] positiveResponses = {
                 "That's fantastic! A positive mindset is a great shield against cyber threats.",
@@ -49,6 +52,7 @@
             {
                 bot.SimulateTyping(negativeResponses[new Random().Next(negativeResponses.Length)]);
             }
+
             // Ask user to choose an area of interest
             List<string> validInterests = new List<string> {
                 "passwords", "scams", "privacy", "phishing", "malware", "vpn",
@@ -74,10 +78,11 @@
 
                 bot.SimulateTyping("Hmm... I didn't catch that as a valid topic. Please choose one from the list.");
             }
+
             bot.SimulateTyping($"I'll remember that you're interested in {userInterest}. That's a crucial topic! Maybe later on in our chat we can discuss {userInterest} further.");
 
             bot.SimulateTyping("Ask me anything about cybersecurity, or you can ask 'what can I ask you' or 'what do you know' for more options. Type 'exit' to leave anytime.");
-            
+
             var keywordResponses = new Dictionary<string, List<string>>() // Dictionary of keyword-based facts
             {
                 { "passwords", new List<string> {
@@ -303,3 +308,4 @@
         }
     }
 }
+

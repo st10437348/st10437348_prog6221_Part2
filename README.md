@@ -38,8 +38,6 @@ Example: "Tell me about passwords" or simply "passwords".
 4. Keyword Detection
 The bot looks for specific keywords in your input.
 When a keyword is found, the bot gives a random helpful tip related to that topic.
-Even partial matches will trigger responses.
-Example: Typing "How do I create a strong password?" will trigger the password response.
 
 5. Sentiment Detection
 The bot also detects emotional keywords like:
